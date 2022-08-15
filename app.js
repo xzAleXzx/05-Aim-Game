@@ -25,6 +25,7 @@ let score = 0;
 
 startBtn.addEventListener('click', (event) => {
   event.preventDefault();
+  select.currentTime = 0;
   select.play();
   screens[0].classList.add('up');
 });
@@ -35,6 +36,7 @@ timeList.addEventListener('click', (event) => {
     // console.log(event.target);
     time = parseInt(event.target.getAttribute('data-time'));
     screens[1].classList.add('up');
+    select.currentTime = 0;
     select.play();
     startGame();
   }
@@ -43,6 +45,7 @@ timeList.addEventListener('click', (event) => {
 board.addEventListener('click', (event) => {
   if (event.target.classList.contains('circle')) {
     score++;
+    hit.currentTime = 0;
     hit.play();
     event.target.remove('circle');
     createRandomCircle();
@@ -111,11 +114,12 @@ function newBtn() {
   again.appendChild(textAgainBtn);
   again.classList.add('again-btn');
 
-  // again.style.position = 'absolute'
-
   board.append(again);
 
   again.addEventListener('click', (event) => {
-    event.target = location.reload();
+    event.target = select.play();
+    setTimeout(function (event) {
+      event.target = location.reload();
+    }, 200);
   });
 }
